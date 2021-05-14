@@ -1,7 +1,7 @@
 You've made it this far! But this is your next challenge!
 
 ## The Problem
-Frumbledingle Corp is struggling with its warehouse management, and has been looking for a developer to help. You need to create a small management app for their inventory. Part of this has been done for you by the last guy they hired - it's your job to finish it. This will consist of the following:
+Frumbledingle Corp is struggling with its warehouse management, and has been looking for a developer to help. You need to create a small management app for their inventory. Part of this has been done for you by the last developer they hired - it's your job to finish it. This will consist of the following:
 
 ### Data Operations
 - Create/Read/Delete operations for all different models
@@ -21,7 +21,7 @@ Frumbledingle Corp is struggling with its warehouse management, and has been loo
 - Any other **cool stuff** you want to add after completing the requirements here will be taken into consideration.
 
 ## Setup Instructions
-- REQUIRED: `php`, `git`, `composer`, `mysql`, `node`, `npm`
+- REQUIRED: `php`, `git`, `composer`, `postgresql`, `node`, `npm`
 - `git clone` this repo
 - Run `composer install`
 - Make sure to set the database information your `.env` file
