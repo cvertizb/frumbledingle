@@ -10,4 +10,9 @@ class Category extends Model
     use SoftDeletes;
     
     protected $guarded = ['id'];
+
+    public function parent()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }

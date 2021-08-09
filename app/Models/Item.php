@@ -15,4 +15,8 @@ class Item extends Model
     {
         return $this->belongsTo(Location::class);
     }
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }
