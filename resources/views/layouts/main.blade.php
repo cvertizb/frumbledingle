@@ -21,6 +21,10 @@
             text-align: center;
             text-shadow: #999 4px 4px 8px;
         }
+        
+        .m-t-20{
+            margin-top: 20px;
+        }
     </style>
     @yield('page_style')
 </head>
