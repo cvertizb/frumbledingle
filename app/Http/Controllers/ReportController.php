@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Routing\Controller;
+use Illuminate\Http\Request;
 
-class ItemController extends Controller
+class ReportController extends Controller
 {
     public function index()
     {
-        return view('items');
+        return view('report');
     }
 }
