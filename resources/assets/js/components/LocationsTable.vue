@@ -30,6 +30,7 @@
 
 <script>
 import axios from 'axios';
+import VueToastr from "vue-toastr";
 
 export default {
     data() {
@@ -49,15 +50,19 @@ export default {
                 }).catch(console.error);
         },
         createLocation() {
-            return axios.post('/api/locations', {name: this.newLocationName})
-                .then(this.getLocations)
-                .then(() => this.newLocationName = '')
-                .catch(console.error);
+            if(confirm('Are you sure?'))
+                return axios.post('/api/locations', {name: this.newLocationName})
+                    .then(this.getLocations)
+                    .then(() => this.newLocationName = '')
+                    .then(()=>this.$toastr.s("Location successfully created"))
+                    .catch(console.error);
         },
         deleteLocation(id) {
-            return axios.post('/api/locations/' + id, {_method: 'DELETE'})
-                .then(this.getLocations)
-                .catch(console.error);
+            if(confirm('Are you sure?'))
+                return axios.post('/api/locations/' + id, {_method: 'DELETE'})
+                    .then(this.getLocations)
+                    .then(()=>this.$toastr.s("Location successfully deleted"))
+                    .catch(console.error);
         }
     }
 }
