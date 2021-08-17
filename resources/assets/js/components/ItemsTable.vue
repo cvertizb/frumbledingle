@@ -37,7 +37,7 @@
                             <div class="form-group">
                                 <label for="parent_category_id">Parent Category</label>
                                 <select v-model="parent_category_id" id="parent_category_id" class="form-control" @change="onParentCategoryChange($event)" required>
-                                    <option value="0">Select an option</option>
+                                    <option value="-1">Select an option</option>
                                     <option v-for="pc in parent_categories" :value="pc.id" :key="pc.id">{{ pc.name }}</option>
                                 </select>
                             </div>
@@ -54,7 +54,7 @@
                         <div class="col-lg-3">
                             <div class="form-group">
                                 <label for="price">Price</label>
-                                <input type="number" v-model="price" class="form-control">
+                                <input type="number" step=".01" v-model="price" class="form-control">
                             </div>
                         </div>
                         
@@ -106,7 +106,7 @@ export default {
             locations: [],
 
             name: '',
-            parent_category_id: 0,
+            parent_category_id: -1,
             category_id: 0,
             location_id: 0,
             price: 0,
@@ -128,7 +128,7 @@ export default {
                 }).catch(console.error);
         },
         getParentCategories(){
-            return axios.get('/api/categories?parent_category_id=null')
+            return axios.get('/api/categories?parent_category_id=-1')
                 .then(response => {
                     this.parent_categories = response.data;
                 }).catch(console.error);
@@ -173,17 +173,17 @@ export default {
                 
                 if(confirm('Are you sure?'))
                     return axios.post('/api/items', {name: this.name, location: this.location_id, category: cat_id, price: this.price})
+                        .then(response => this.$toastr.s(response.data.message))
                         .then(() => this.name = '', this.location_id = 0, this.parent_category_id = 0, this.category_id = 0, this.price = 0, this.errors = [])
                         .then(this.getItems)
-                        .then(()=>this.$toastr.s("Item successfully created"))
                         .catch(console.error);
             }
         },
         deleteItem(id) {
             if(confirm('Are you sure?'))
                 return axios.post('/api/items/' + id, {_method: 'DELETE'})
+                    .then(response => this.$toastr.s(response.data.message))
                     .then(this.getItems)
-                    .then(()=>this.$toastr.s("Item successfully deleted"))
                     .catch(console.error);
         }
     }

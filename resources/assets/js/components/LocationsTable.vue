@@ -52,16 +52,16 @@ export default {
         createLocation() {
             if(confirm('Are you sure?'))
                 return axios.post('/api/locations', {name: this.newLocationName})
+                    .then(response => this.$toastr.s(response.data.message))
                     .then(this.getLocations)
                     .then(() => this.newLocationName = '')
-                    .then(()=>this.$toastr.s("Location successfully created"))
                     .catch(console.error);
         },
         deleteLocation(id) {
             if(confirm('Are you sure?'))
                 return axios.post('/api/locations/' + id, {_method: 'DELETE'})
+                    .then(response => this.$toastr.s(response.data.message))
                     .then(this.getLocations)
-                    .then(()=>this.$toastr.s("Location successfully deleted"))
                     .catch(console.error);
         }
     }

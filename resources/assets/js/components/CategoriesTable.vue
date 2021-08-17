@@ -19,7 +19,7 @@
                             <div class="form-group">
                                 <label for="name">Parent Category</label>
                                 <select v-model="parent_category_id" id="parent_category_id" class="form-control">
-                                    <option value="">Is Parent Category</option>
+                                    <option value="-1">Is Parent Category</option>
                                     <option v-for="pc in parent_categories" :value="pc.id" :key="pc.id">{{ pc.name }}</option>
                                 </select>
                             </div>
@@ -69,7 +69,7 @@ export default {
             categories: [],
 
             name: '',
-            parent_category_id: '',
+            parent_category_id: -1,
         };
     },
     mounted() {
@@ -84,7 +84,7 @@ export default {
                 }).catch(console.error);
         },
         getParentCategories(){
-            return axios.get('/api/categories?parent_category_id=null')
+            return axios.get('/api/categories?parent_category_id=-1')
                 .then(response => {
                     this.parent_categories = response.data;
                 }).catch(console.error);
@@ -97,20 +97,19 @@ export default {
 
             if(this.errors.length == 0)
             {
-                
                 if(confirm('Are you sure?'))
                     return axios.post('/api/categories', {parent_id: this.parent_category_id, name: this.name})
+                        .then(response => this.$toastr.s(response.data.message))
                         .then(this.getCategories)
-                        .then(() => this.parent_category_id = '', this.name = '', this.errors = [], this.getParentCategories())
-                        .then(()=>this.$toastr.s("Category successfully created"))
+                        .then(() => this.parent_category_id = -1, this.name = '', this.errors = [], this.getParentCategories())
                         .catch(console.error);
             }
         },
         deleteCategory(id) {
             if(confirm('Are you sure?'))
                 return axios.post('/api/categories/' + id, {_method: 'DELETE'})
+                    .then(response => this.$toastr.s(response.data.message))
                     .then(this.getCategories)
-                    .then(()=>this.$toastr.s("Category successfully deleted"))
                     .catch(console.error);
         }
     }
