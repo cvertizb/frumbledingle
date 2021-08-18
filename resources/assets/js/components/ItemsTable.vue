@@ -174,7 +174,7 @@ export default {
                 if(confirm('Are you sure?'))
                     return axios.post('/api/items', {name: this.name, location: this.location_id, category: cat_id, price: this.price})
                         .then(response => this.$toastr.s(response.data.message))
-                        .then(() => this.name = '', this.location_id = 0, this.parent_category_id = 0, this.category_id = 0, this.price = 0, this.errors = [])
+                        .then(() => this.name = '', this.location_id = 0, this.parent_category_id = -1, this.category_id = 0, this.price = 0, this.errors = [])
                         .then(this.getItems)
                         .catch(console.error);
             }
